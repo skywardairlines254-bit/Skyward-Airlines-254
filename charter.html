@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charter Services | Skyward Airlines</title>
+<meta name="description" content="Corporate, private and safari charter flights from Skyward Airlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero photo">
+    <div class="photo-block grad-terracotta" style="position:absolute;inset:0;border-radius:0;background-image:url('images/charter.jpg');"></div>
+    <div class="scrim"></div>
+    <div class="container">
+      <div class="breadcrumb" style="color:#F0C9CC;"><a href="index.html" style="color:#F0C9CC;">Home</a> / Charter Services</div>
+      <h1 style="color:white;font-size:clamp(28px,4.5vw,44px);">Charter Services</h1>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="card-grid grid-3 mb-32">
+        <div class="promo-card"><h4>Corporate Charter</h4><p>Move teams between sites without commercial schedules dictating your day.</p></div>
+        <div class="promo-card"><h4>Private Charter</h4><p>Fly on your own schedule, direct to the airstrip nearest your destination.</p></div>
+        <div class="promo-card"><h4>Safari Travel</h4><p>Transfers to and from safari camps and conservancies across the network.</p></div>
+        <div class="promo-card"><h4>Group Travel</h4><p>Larger groups travelling together for events, conferences or tours.</p></div>
+        <div class="promo-card"><h4>Special Missions</h4><p>Medical evacuation support and other time-critical missions on request.</p></div>
+      </div>
+      <div class="two-col">
+        <div>
+          <h2 class="mb-16">Request a charter quote</h2>
+          <form id="charterForm">
+            <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+              <div class="form-field"><label>Full Name</label><input type="text" required></div>
+              <div class="form-field"><label>Phone Number</label><input type="tel" required></div>
+              <div class="form-field"><label>From</label><input type="text" placeholder="e.g. Nairobi Wilson"></div>
+              <div class="form-field"><label>To</label><input type="text" placeholder="e.g. Lamu"></div>
+              <div class="form-field"><label>Preferred Date</label><input type="date"></div>
+              <div class="form-field"><label>Passengers</label><input type="number" min="1" value="4"></div>
+              <div class="form-field" style="grid-column:1/-1;"><label>Purpose</label>
+                <select><option>Corporate</option><option>Private</option><option>Safari transfer</option><option>Group travel</option><option>Other</option></select>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="margin-top:16px;" type="submit">Request Quote</button>
+          </form>
+          <div id="charterSuccess" class="callout hidden" style="margin-top:16px;">Thank you — our charter desk will contact you with a quote shortly.</div>
+        </div>
+        <div class="photo-block grad-navy" style="background-image:url('images/cessna-caravan.jpg');"></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("about"); renderFooter();
+  document.getElementById("charterForm").addEventListener("submit", e => { e.preventDefault(); document.getElementById("charterSuccess").classList.remove("hidden"); e.target.reset(); });
+</script>
+</body>
+</html>

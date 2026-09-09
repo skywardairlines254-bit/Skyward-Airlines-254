@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Destination | Skyward Airlines</title>
+<meta name="description" id="pageDesc" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main id="app"></main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("destinations");
+  renderFooter();
+
+  const id = new URLSearchParams(window.location.search).get("id") || "nairobi";
+  const d = destination(id) || DESTINATIONS[0];
+  document.getElementById("pageTitle").textContent = d.name + " Flights | Skyward Airlines";
+  document.getElementById("pageDesc").setAttribute("content", d.description.slice(0,150));
+
+  const inbound = ROUTES.filter(r => r.destination === d.airportCode);
+  const outbound = ROUTES.filter(r => r.origin === d.airportCode);
+  const related = d.relatedDestinations.map(rid => destination(rid)).filter(Boolean);
+
+  document.getElementById("app").innerHTML = `
+    <div class="page-hero photo">
+      <div class="photo-block ${d.hero}" style="position:absolute;inset:0;border-radius:0;${d.image ? `background-image:url('${d.image}');` : ""}"></div>
+      <div class="scrim"></div>
+      <div class="container">
+        <div class="breadcrumb" style="color:#F6E4E5;"><a href="index.html" style="color:#F6E4E5;">Home</a> / <a href="destinations.html" style="color:#F6E4E5;">Destinations</a> / ${d.name}</div>
+        <h1 style="color:white;font-size:clamp(28px,4.5vw,44px);">${d.name}</h1>
+        <p style="color:#F6E4E5;">${d.country} · ${d.airport.name} (${d.airport.code})</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container two-col">
+        <div>
+          <span class="eyebrow">About the destination</span>
+          <h2 class="mb-16">${d.tagline}</h2>
+          <p class="muted">${d.description}</p>
+
+          <span class="eyebrow" style="margin-top:32px;display:block;">Why visit</span>
+          <h2 class="mb-16">Highlights</h2>
+          <div class="card-grid grid-3">
+            ${d.highlights.map(h => `<div class="promo-card"><p style="margin:0;">${h}</p></div>`).join("")}
+          </div>
+        </div>
+        <div>
+          <div class="summary-card">
+            <div class="summary-head"><h4>Travel Information</h4></div>
+            <div class="summary-body">
+              <div class="summary-line"><span>Airport</span><strong>${d.airport.name}</strong></div>
+              <div class="summary-line"><span>Airport code</span><strong>${d.airport.code}</strong></div>
+              <div class="summary-line"><span>Fares from</span><strong>${d.fareFrom ? formatPrice(d.fareFrom) : "—"}</strong></div>
+            </div>
+          </div>
+          <a href="booking.html?to=${d.airportCode}" class="btn btn-primary btn-block" style="margin-top:16px;">Book / Enquire</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <span class="eyebrow">Schedules</span>
+        <h2 class="mb-24">Routes</h2>
+        <div class="card-grid grid-2">
+          <div>
+            <h4 class="mb-8">Flights to ${d.name}</h4>
+            ${inbound.length ? inbound.map(r => routeLineHtml(r)).join("") : '<p class="muted">Charter and on-request service — contact us.</p>'}
+          </div>
+          <div>
+            <h4 class="mb-8">Flights from ${d.name}</h4>
+            ${outbound.length ? outbound.map(r => routeLineHtml(r)).join("") : '<p class="muted">Charter and on-request service — contact us.</p>'}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    ${related.length ? `
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">Nearby</span>
+        <h2 class="mb-24">Related Destinations</h2>
+        <div class="card-grid grid-3">
+          ${related.map(rd => `
+            <a href="destination.html?id=${rd.id}" class="dest-card">
+              <div class="card-media">${destPhotoSvg(rd)}</div>
+              <div class="card-body"><h4>${rd.name}</h4><div class="route-line">${rd.country} · ${rd.tagline}</div></div>
+            </a>`).join("")}
+        </div>
+      </div>
+    </section>` : ""}
+  `;
+
+  function routeLineHtml(r) {
+    return `<div class="flight-card" style="padding:14px 16px;">
+      <div class="flight-endpoints">
+        <div><div class="fe-time" style="font-size:16px;">${r.departureTime}</div><div class="fe-code">${r.origin}</div></div>
+        <div class="fe-mid"><div>${r.duration}</div><div class="line"></div><div>${r.flightNumber}</div></div>
+        <div><div class="fe-time" style="font-size:16px;">${r.arrivalTime}</div><div class="fe-code">${r.destination}</div></div>
+      </div>
+      <div class="flight-price-col"><div class="fare-price" style="font-size:16px;">${formatPrice(r.price)}</div></div>
+    </div>`;
+  }
+</script>
+</body>
+</html>

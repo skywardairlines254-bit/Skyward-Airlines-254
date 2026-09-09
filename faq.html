@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frequently Asked Questions | Skyward Airlines</title>
+<meta name="description" content="Answers to common questions about booking, baggage, check-in and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / About Us / FAQs</div>
+      <h1 style="color:white;font-size:clamp(26px,4vw,38px);">Frequently Asked Questions</h1>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="tab-strip" id="faqTabs"></div>
+      <div id="faqList" style="max-width:780px;"></div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("about"); renderFooter();
+  const cats = ["All", ...new Set(FAQS.map(f => f.cat))];
+  let active = "All";
+  function renderTabs() {
+    document.getElementById("faqTabs").innerHTML = cats.map(c => `<button class="${c===active?'active':''}" data-cat="${c}">${c}</button>`).join("");
+    document.querySelectorAll("[data-cat]").forEach(b => b.addEventListener("click", () => { active = b.dataset.cat; renderTabs(); renderList(); }));
+  }
+  function renderList() {
+    const list = active === "All" ? FAQS : FAQS.filter(f => f.cat === active);
+    document.getElementById("faqList").innerHTML = list.map(f => `
+      <div class="accordion-item">
+        <button class="accordion-btn">${f.q}<span class="accordion-plus">+</span></button>
+        <div class="accordion-panel"><p>${f.a}</p></div>
+      </div>`).join("");
+    wireAccordions();
+  }
+  renderTabs(); renderList();
+</script>
+</body>
+</html>

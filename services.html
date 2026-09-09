@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Services | Skyward Airlines</title>
+<meta name="description" content="Lounge access, extra baggage, seat selection, parcels and charter services from Skyward Airlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / About Us / Our Services</div>
+      <h1 style="color:white;font-size:clamp(26px,4vw,38px);">Complement Your Journey</h1>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container card-grid grid-3" id="servicesList"></div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("about"); renderFooter();
+  const icons = { lounge: "🛋", baggage: "🧳", seat: "💺", parcel: "📦", charter: "✈️" };
+  const links = { lounge: "lounge.html", baggage: "baggage-extra.html", seat: "baggage-extra.html", parcel: "parcels.html", charter: "charter.html" };
+  const images = { lounge: "images/lounge.jpg", charter: "images/charter.jpg", parcel: "images/network-map.jpg" };
+  document.getElementById("servicesList").innerHTML = SERVICES.map(s => `
+    <div class="service-card">
+      <div class="card-media">${mediaBlock(images[s.icon], "grad-sky", s.title)}</div>
+      <div class="card-body">
+        <h4>${s.title}</h4>
+        <p>${s.desc}</p>
+        <a href="${links[s.icon]}" class="btn btn-outline btn-sm">Learn More</a>
+      </div>
+    </div>`).join("");
+</script>
+</body>
+</html>

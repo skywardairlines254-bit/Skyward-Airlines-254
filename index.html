@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skyward Airlines | Regional Flights Across East Africa</title>
+<meta name="description" content="Skyward Airlines connects Nairobi, Mombasa, Lamu, Kisumu, Dar es Salaam, Entebbe and more with reliable, affordable regional flights across East Africa.">
+<meta property="og:title" content="Skyward Airlines | Regional Flights Across East Africa">
+<meta property="og:description" content="Book flights across Kenya, Tanzania and Uganda with Skyward Airlines.">
+<meta property="og:image" content="images/og-cover.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-carousel" id="heroCarousel">
+      <div class="hero-slide active" style="background-image:url('images/nairobi.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/mombasa.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/lamu.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/dar-es-salaam.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/entebbe.jpg');"></div>
+      <div class="hero-slide" style="background-image:url('images/vipingo-ridge.jpg');"></div>
+    </div>
+    <div class="hero-scrim"></div>
+    <div class="hero-dots" id="heroDots"></div>
+    <div class="hero-content">
+      <span class="eyebrow" style="color:#F37E88;">East Africa, connected</span>
+      <h1>Regional flying, made refreshingly simple.</h1>
+      <p class="lead">Skyward Airlines links 15 destinations across Kenya, Tanzania and Uganda — from coastal escapes to frontier towns most airlines skip.</p>
+      <div class="hero-actions">
+        <a href="booking.html#search" class="btn btn-primary">Book Now</a>
+        <a href="destinations.html" class="btn btn-white">Explore Destinations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH WIDGET -->
+  <div class="search-widget" id="search">
+    <div class="search-card">
+      <div class="trip-tabs" role="tablist">
+        <button class="trip-tab active" data-trip="oneway">One Way</button>
+        <button class="trip-tab" data-trip="return">Round Trip</button>
+        <button class="trip-tab" data-trip="multi">Multi City</button>
+      </div>
+      <form id="homeSearchForm">
+        <div class="search-fields">
+          <div class="field">
+            <label for="fromSel">From</label>
+            <select id="fromSel"></select>
+            <button type="button" class="swap-btn" id="swapBtn" title="Swap">&#8646;</button>
+          </div>
+          <div class="field">
+            <label for="toSel">To</label>
+            <select id="toSel"></select>
+          </div>
+          <div class="field">
+            <label for="depDate">Departure</label>
+            <input type="date" id="depDate" required>
+          </div>
+          <div class="field" id="returnField" style="display:none;">
+            <label for="retDate">Return</label>
+            <input type="date" id="retDate">
+          </div>
+          <div class="field pax-selector">
+            <label>Passengers</label>
+            <button type="button" class="pax-summary" id="paxSummaryBtn">1 Adult, Economy</button>
+            <div class="pax-panel hidden" id="paxPanel">
+              <div class="pax-row">
+                <div><span class="pax-label">Adults</span><span class="pax-sub">12+ years</span></div>
+                <div class="stepper"><button type="button" data-pax="adults" data-d="-1">–</button><span id="adultsCount">1</span><button type="button" data-pax="adults" data-d="1">+</button></div>
+              </div>
+              <div class="pax-row">
+                <div><span class="pax-label">Children</span><span class="pax-sub">2–11 years</span></div>
+                <div class="stepper"><button type="button" data-pax="children" data-d="-1">–</button><span id="childrenCount">0</span><button type="button" data-pax="children" data-d="1">+</button></div>
+              </div>
+              <div class="pax-row">
+                <div><span class="pax-label">Infants</span><span class="pax-sub">Under 2 years</span></div>
+                <div class="stepper"><button type="button" data-pax="infants" data-d="-1">–</button><span id="infantsCount">0</span><button type="button" data-pax="infants" data-d="1">+</button></div>
+              </div>
+              <hr style="border:none;border-top:1px solid var(--border);margin:10px 0;">
+              <div class="pax-row">
+                <div><span class="pax-label">Cabin</span></div>
+                <select id="cabinSel" style="padding:6px 8px;border-radius:6px;border:1.5px solid var(--border);">
+                  <option>Economy</option>
+                  <option>Skyward Plus</option>
+                </select>
+              </div>
+              <button type="button" class="btn btn-navy btn-block btn-sm" id="paxDoneBtn" style="margin-top:8px;">Done</button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="height:46px;">Search Flights</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ANNOUNCEMENTS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">On the network</span>
+        <h2>What's new at Skyward Airlines</h2>
+      </div>
+      <div class="promo-grid" id="announcementsGrid"></div>
+    </div>
+  </section>
+
+  <!-- SMART DEALS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Fares worth planning around</span>
+        <h2>Smart Deals</h2>
+        <p>Advance-purchase fares on our most popular routes. Prices shown are one-way, per person.</p>
+      </div>
+      <div class="card-grid grid-4" id="offersGrid"></div>
+    </div>
+  </section>
+
+  <!-- DESTINATIONS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head flex-between" style="align-items:flex-end;">
+        <div>
+          <span class="eyebrow">15 destinations, 3 countries</span>
+          <h2>Our Destinations</h2>
+        </div>
+      </div>
+      <div class="card-grid grid-4" id="destGrid"></div>
+      <div class="text-center" style="margin-top:32px;">
+        <a href="destinations.html" class="btn btn-outline">View All Destinations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Travel your way</span>
+        <h2>Complement Your Journey</h2>
+      </div>
+      <div class="card-grid grid-4" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head flex-between" style="align-items:flex-end;">
+        <div>
+          <span class="eyebrow">From the newsroom</span>
+          <h2>Latest News</h2>
+        </div>
+        <a href="news.html" class="btn-ghost">View all news →</a>
+      </div>
+      <div class="card-grid grid-4" id="newsGrid"></div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="newsletter">
+        <h2>Sign up to receive our latest offers and news</h2>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" placeholder="Your email address" required>
+          <button class="btn btn-primary" type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHERE WE FLY MAP STRIP -->
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <span class="eyebrow">Network</span>
+        <h2 class="mb-16">Where We Fly</h2>
+        <p class="muted">Skyward Airlines operates a hub-and-spoke network from Nairobi, reaching Kenya's coast, highlands and northern frontier, plus regional links to Dar es Salaam and Entebbe.</p>
+        <div class="stat-strip">
+          <div><strong>15</strong><span>Destinations</span></div>
+          <div><strong>30</strong><span>Daily flights</span></div>
+          <div><strong>3</strong><span>Countries served</span></div>
+        </div>
+      </div>
+      <div class="photo-block grad-navy" style="aspect-ratio:1;background-image:url('images/network-map.jpg');"></div>
+    </div>
+  </section>
+
+  <!-- TRAVEL INFO TEASER -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Before you fly</span>
+        <h2>Travel Information</h2>
+      </div>
+      <div class="card-grid grid-4">
+        <a href="baggage-policy.html" class="promo-card"><h4>Baggage Policy</h4><p>Allowances, fees and special items.</p><span class="btn-ghost">Read more →</span></a>
+        <a href="travel-requirements.html" class="promo-card"><h4>Travel Requirements</h4><p>Documents you'll need to fly.</p><span class="btn-ghost">Read more →</span></a>
+        <a href="special-needs.html" class="promo-card"><h4>Special Assistance</h4><p>Support for passengers who need it.</p><span class="btn-ghost">Read more →</span></a>
+        <a href="faq.html" class="promo-card"><h4>FAQs</h4><p>Answers to common questions.</p><span class="btn-ghost">Read more →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT TEASER -->
+  <section class="section section-navy">
+    <div class="container flex-between" style="flex-wrap:wrap;gap:24px;">
+      <div>
+        <span class="eyebrow">We're here to help</span>
+        <h2>Talk to our reservations team</h2>
+      </div>
+      <div class="flex gap-12" style="flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-white">Contact Us</a>
+        <a href="tel:+254755455919" class="btn btn-outline" style="color:white;">Call 0755 455 919</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("home");
+  renderFooter();
+  wireNewsletter("newsletterForm");
+
+  // hero photo carousel — auto-advances, with clickable dots
+  initHeroCarousel();
+
+  // From/To selects
+  const fromSel = document.getElementById("fromSel");
+  const toSel = document.getElementById("toSel");
+  AIRPORTS.forEach(a => {
+    fromSel.innerHTML += `<option value="${a.code}">${a.city} (${a.displayCode || a.code})</option>`;
+    toSel.innerHTML += `<option value="${a.code}">${a.city} (${a.displayCode || a.code})</option>`;
+  });
+  fromSel.value = "NBO"; toSel.value = "MBA";
+  document.getElementById("swapBtn").addEventListener("click", () => {
+    const t = fromSel.value; fromSel.value = toSel.value; toSel.value = t;
+  });
+
+  // trip type tabs
+  document.querySelectorAll(".trip-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".trip-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById("returnField").style.display = tab.dataset.trip === "return" ? "flex" : "none";
+    });
+  });
+
+  // passengers panel
+  const paxState = { adults: 1, children: 0, infants: 0 };
+  const paxBtn = document.getElementById("paxSummaryBtn");
+  const paxPanel = document.getElementById("paxPanel");
+  paxBtn.addEventListener("click", (e) => { e.stopPropagation(); paxPanel.classList.toggle("hidden"); });
+  document.getElementById("paxDoneBtn").addEventListener("click", () => paxPanel.classList.add("hidden"));
+  document.addEventListener("click", (e) => { if (!paxPanel.contains(e.target) && e.target !== paxBtn) paxPanel.classList.add("hidden"); });
+  document.querySelectorAll("[data-pax]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.dataset.pax; const d = parseInt(btn.dataset.d);
+      const min = key === "adults" ? 1 : 0;
+      paxState[key] = Math.max(min, Math.min(9, paxState[key] + d));
+      document.getElementById(key + "Count").textContent = paxState[key];
+      updatePaxSummary();
+    });
+  });
+  function updatePaxSummary() {
+    const total = paxState.adults + paxState.children + paxState.infants;
+    const cabin = document.getElementById("cabinSel").value;
+    paxBtn.textContent = `${total} ${total === 1 ? "Passenger" : "Passengers"}, ${cabin}`;
+  }
+  document.getElementById("cabinSel").addEventListener("change", updatePaxSummary);
+
+  // default date
+  const today = new Date(); today.setDate(today.getDate() + 3);
+  document.getElementById("depDate").value = today.toISOString().slice(0,10);
+  document.getElementById("depDate").min = new Date().toISOString().slice(0,10);
+
+  // submit -> booking.html with query params
+  document.getElementById("homeSearchForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const trip = document.querySelector(".trip-tab.active").dataset.trip;
+    const params = new URLSearchParams({
+      from: fromSel.value, to: toSel.value,
+      dep: document.getElementById("depDate").value,
+      ret: document.getElementById("retDate").value || "",
+      trip, adults: paxState.adults, children: paxState.children, infants: paxState.infants,
+      cabin: document.getElementById("cabinSel").value
+    });
+    window.location.href = "booking.html?" + params.toString();
+  });
+
+  // announcements
+  document.getElementById("announcementsGrid").innerHTML = ANNOUNCEMENTS.map(a => `
+    <div class="promo-card">
+      <span class="tag">${a.tag}</span>
+      <h4>${a.title}</h4>
+      <p>${a.body}</p>
+      <a href="news.html" class="btn-ghost">${a.cta} →</a>
+    </div>`).join("");
+
+  // offers
+  document.getElementById("offersGrid").innerHTML = OFFERS.map(o => {
+    const dest = destination(o.destinationId), orig = destination(o.originId);
+    return `
+    <div class="offer-card">
+      <div class="card-media"><div class="card-label">${o.label}</div>${destPhotoSvg(dest)}</div>
+      <div class="card-body">
+        <h4>${orig.name} → ${dest.name}</h4>
+        <div class="route-line">${o.desc}</div>
+        <div class="fare-row">
+          <div><span class="fare-from">From</span><div class="fare-price">${formatPrice(o.price)}</div></div>
+          <a href="booking.html?from=${orig.airportCode}&to=${dest.airportCode}" class="btn btn-navy btn-sm">Book</a>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+
+  // destinations grid (first 8 on homepage)
+  document.getElementById("destGrid").innerHTML = DESTINATIONS.slice(0, 8).map(d => `
+    <a href="destination.html?id=${d.id}" class="dest-card">
+      <div class="card-media">${destPhotoSvg(d)}</div>
+      <div class="card-body">
+        <h4>${d.name}</h4>
+        <div class="route-line">${d.country} · ${d.tagline}</div>
+        <div class="fare-row">
+          <div><span class="fare-from">From</span><div class="fare-price">${d.fareFrom ? formatPrice(d.fareFrom) : "Hub city"}</div></div>
+          <span class="btn btn-outline btn-sm">View</span>
+        </div>
+      </div>
+    </a>`).join("");
+
+  // services
+  document.getElementById("servicesGrid").innerHTML = SERVICES.map(s => `
+    <div class="service-card">
+      <div class="card-body">
+        <div class="extra-icon mb-16">${serviceIcon(s.icon)}</div>
+        <h4>${s.title}</h4>
+        <p>${s.desc}</p>
+        <a href="${s.id === 'lounge' ? 'lounge.html' : s.id === 'baggage' ? 'baggage-extra.html' : s.id === 'parcels' ? 'parcels.html' : s.id === 'charter' ? 'charter.html' : 'services.html'}" class="btn-ghost">Learn More →</a>
+      </div>
+    </div>`).join("");
+
+  function serviceIcon(k) {
+    const icons = { lounge: "🛋", baggage: "🧳", seat: "💺", parcel: "📦", charter: "✈️" };
+    return icons[k] || "✈️";
+  }
+
+  // news
+  document.getElementById("newsGrid").innerHTML = NEWS.map(n => `
+    <a href="news-article.html?id=${n.id}" class="news-card">
+      <div class="card-media">${mediaBlock(n.image, "grad-navy", n.title)}</div>
+      <div class="card-body">
+        <span class="tag">${n.category}</span>
+        <h4>${n.title}</h4>
+        <p>${n.excerpt}</p>
+      </div>
+    </a>`).join("");
+</script>
+</body>
+</html>

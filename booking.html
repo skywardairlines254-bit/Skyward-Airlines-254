@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Flight | Skyward Airlines</title>
+<meta name="description" content="Search flights, select seats and complete your Skyward Airlines booking request.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main class="section" style="padding-top:32px;">
+  <div class="container">
+
+    <div class="progress-rail" id="progressRail"></div>
+
+    <!-- STEP 1: SEARCH SUMMARY (shown above results) -->
+    <div id="step-results" class="hidden">
+      <div class="flex-between mb-24" style="flex-wrap:wrap;gap:12px;">
+        <div>
+          <h1 style="font-size:26px;" id="resultsHeading">Select Your Flight</h1>
+          <p class="muted" id="searchSummaryText"></p>
+        </div>
+        <button class="btn btn-outline btn-sm" id="editSearchBtn">Edit Search</button>
+      </div>
+      <div class="two-col">
+        <div>
+          <div id="resultsSortBar" class="flex gap-12 mb-16" style="flex-wrap:wrap;"></div>
+          <div id="resultsList"></div>
+        </div>
+        <div>
+          <div class="filter-panel">
+            <h5 style="margin-bottom:16px;">Filter Results</h5>
+            <div class="filter-group">
+              <h5>Departure Time</h5>
+              <label><input type="checkbox" data-filter-time="morning" checked> Morning (before 12:00)</label>
+              <label><input type="checkbox" data-filter-time="afternoon" checked> Afternoon (12:00–17:00)</label>
+              <label><input type="checkbox" data-filter-time="evening" checked> Evening (after 17:00)</label>
+            </div>
+            <div class="filter-group">
+              <h5>Stops</h5>
+              <label><input type="checkbox" data-filter-stops="direct" checked> Direct only</label>
+            </div>
+            <div class="filter-group" id="aircraftFilterGroup">
+              <h5>Aircraft</h5>
+            </div>
+            <div class="filter-group">
+              <h5>Max Price</h5>
+              <input type="range" id="priceRange" min="5000" max="17000" step="500" style="width:100%;">
+              <div class="muted" id="priceRangeLabel" style="font-size:13px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: FLIGHT DETAILS -->
+    <div id="step-details" class="hidden">
+      <h1 style="font-size:26px;" class="mb-24">Flight Details</h1>
+      <div class="two-col">
+        <div id="detailsMain"></div>
+        <div>
+          <div class="summary-card">
+            <div class="summary-head"><h4>Fare Summary</h4></div>
+            <div class="summary-body" id="detailsFareBody"></div>
+            <div class="summary-total" id="detailsFareTotal"></div>
+          </div>
+          <button class="btn btn-primary btn-block" style="margin-top:16px;" id="continueToPassengers">Continue</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: PASSENGER INFORMATION -->
+    <div id="step-passengers" class="hidden">
+      <h1 style="font-size:26px;" class="mb-24">Passenger Information</h1>
+      <div class="two-col">
+        <div id="passengerForms"></div>
+        <div>
+          <div class="summary-card" id="sidebarSummary"></div>
+          <button class="btn btn-primary btn-block" style="margin-top:16px;" id="continueToSeats">Continue to Seat Selection</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: SEAT SELECTION -->
+    <div id="step-seats" class="hidden">
+      <h1 style="font-size:26px;" class="mb-24">Choose Your Seats</h1>
+      <div class="two-col">
+        <div>
+          <div class="tab-strip" id="seatPaxTabs"></div>
+          <div class="seat-map"><div class="cabin" id="cabinMap"></div></div>
+          <div class="seat-legend">
+            <div class="legend-item"><span class="swatch" style="background:white;border:1.5px solid var(--border);"></span>Available</div>
+            <div class="legend-item"><span class="swatch" style="background:var(--navy);"></span>Selected</div>
+            <div class="legend-item"><span class="swatch" style="background:#EDE4E5;"></span>Occupied</div>
+            <div class="legend-item"><span class="swatch" style="background:var(--sky-light);border:1.5px solid var(--sky);"></span>Extra Legroom (+KSh 800)</div>
+            <div class="legend-item"><span class="swatch" style="background:#FBDFE1;border:1.5px solid var(--amber);"></span>Skyward Plus (+KSh 2,200)</div>
+          </div>
+        </div>
+        <div>
+          <div class="summary-card" id="seatSidebar"></div>
+          <button class="btn btn-primary btn-block" style="margin-top:16px;" id="continueToExtras">Continue to Extras</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5: ANCILLARY SERVICES -->
+    <div id="step-extras" class="hidden">
+      <h1 style="font-size:26px;" class="mb-24">Add Extras to Your Trip</h1>
+      <div class="two-col">
+        <div id="extrasList"></div>
+        <div>
+          <div class="summary-card" id="extrasSidebar"></div>
+          <button class="btn btn-primary btn-block" style="margin-top:16px;" id="continueToSummary">Continue to Review</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: BOOKING SUMMARY -->
+    <div id="step-summary" class="hidden">
+      <h1 style="font-size:26px;" class="mb-24">Review Your Booking</h1>
+      <div class="two-col">
+        <div id="summaryMain"></div>
+        <div>
+          <div class="summary-card" id="summarySidebar"></div>
+          <button class="btn btn-primary btn-block" style="margin-top:16px;" id="continueToEnquiry">Continue to Contact Details</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 7: BOOKING ENQUIRY -->
+    <div id="step-enquiry" class="hidden">
+      <h1 style="font-size:26px;" class="mb-24">Complete Your Booking</h1>
+      <div class="callout">We don't take card, mobile-money or bank details online, and this step doesn't process payment. Tap "Continue on WhatsApp" below to send your booking request straight to our reservations team, who will confirm details and arrange payment directly with you.</div>
+      <div class="two-col">
+        <div>
+          <div class="summary-card mb-24" id="enquiryBookingRecap"></div>
+          <form id="enquiryForm">
+            <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+              <div class="form-field"><label>Full Name</label><input type="text" required></div>
+              <div class="form-field"><label>Phone Number</label><input type="tel" required></div>
+              <div class="form-field" style="grid-column:1/-1;"><label>Email (optional)</label><input type="email"></div>
+              <div class="form-field" style="grid-column:1/-1;"><label>Message (optional)</label><textarea rows="4" placeholder="Anything else our reservations team should know?"></textarea></div>
+            </div>
+            <div class="mb-16" style="margin-top:16px;">
+              <h5 style="font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--navy-dark);margin-bottom:10px;">Preferred contact method</h5>
+              <div class="flex gap-12" style="flex-wrap:wrap;">
+                <label class="pill"><input type="radio" name="contactMethod" value="Call" checked> Call</label>
+                <label class="pill"><input type="radio" name="contactMethod" value="Email"> Email</label>
+                <label class="pill"><input type="radio" name="contactMethod" value="WhatsApp"> WhatsApp</label>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Continue on WhatsApp</button>
+          </form>
+        </div>
+        <div></div>
+      </div>
+    </div>
+
+    <!-- STEP 8: CONFIRMATION -->
+    <div id="step-confirmation" class="hidden text-center" style="padding:60px 0;">
+      <div style="font-size:52px;">✅</div>
+      <h1 style="margin-top:16px;">Booking request sent</h1>
+      <p class="muted" style="max-width:480px;margin:12px auto 0;">Your booking details have been handed off to WhatsApp. If the chat didn't open automatically, use the button below. A Skyward Airlines reservations agent will confirm your booking and arrange payment directly with you there.</p>
+      <p class="muted">Reference: <strong id="confRef"></strong></p>
+      <div class="flex gap-12" style="justify-content:center;flex-wrap:wrap;margin-top:20px;">
+        <a id="confWhatsappLink" href="#" target="_blank" rel="noopener" class="btn btn-primary">Reopen WhatsApp</a>
+        <a href="index.html" class="btn btn-navy">Return to Homepage</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script src="js/booking.js"></script>
+</body>
+</html>

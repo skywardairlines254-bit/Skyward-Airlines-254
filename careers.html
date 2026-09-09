@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers | Skyward Airlines</title>
+<meta name="description" content="Current opportunities at Skyward Airlines, across flight operations, engineering and reservations.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / About Us / Careers</div>
+      <h1 style="color:white;font-size:clamp(26px,4vw,38px);">Careers at Skyward Airlines</h1>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <span class="eyebrow">Why work with us</span>
+        <h2 class="mb-16">Regional aviation, close up</h2>
+        <p class="muted">At Skyward Airlines, cabin crew know their routes, engineers know their aircraft by tail number, and reservations agents recognise repeat travellers by name. It's a smaller airline, and that's the point.</p>
+      </div>
+      <div class="photo-block grad-navy" style="aspect-ratio:4/3;background-image:url('images/careers-team.jpg');"></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="container">
+      <span class="eyebrow">Current opportunities</span>
+      <h2 class="mb-24">Open roles</h2>
+      <div id="jobsList"></div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("about"); renderFooter();
+  const jobs = [
+    { title: "First Officer — Dash 8-400", loc: "Nairobi (Wilson)", type: "Full-time" },
+    { title: "Cabin Crew", loc: "Nairobi / Mombasa base", type: "Full-time" },
+    { title: "Licensed Aircraft Engineer", loc: "Nairobi (Wilson)", type: "Full-time" },
+    { title: "Reservations Agent", loc: "Nairobi Head Office", type: "Full-time" },
+    { title: "Ground Operations Officer", loc: "Kisumu", type: "Full-time" }
+  ];
+  document.getElementById("jobsList").innerHTML = jobs.map(j => `
+    <div class="flight-card">
+      <div class="flight-endpoints"><div><div style="font-weight:800;color:var(--navy);font-size:16px;">${j.title}</div><div class="fe-code">${j.loc} · ${j.type}</div></div></div>
+      <a href="contact.html" class="btn btn-outline btn-sm">Apply</a>
+    </div>`).join("");
+</script>
+</body>
+</html>

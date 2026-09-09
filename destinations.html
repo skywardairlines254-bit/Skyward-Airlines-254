@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Destinations | Skyward Airlines</title>
+<meta name="description" content="Explore all 15 Skyward Airlines destinations across Kenya, Tanzania and Uganda.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Destinations</div>
+      <h1 style="color:white;font-size:clamp(26px,4vw,38px);">Our Destinations</h1>
+      <p style="color:#E8C7CA;max-width:560px;margin-top:10px;">15 destinations across Kenya, Tanzania and Uganda — coastal, highland, lake-region and frontier towns.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="tab-strip" id="regionTabs"></div>
+      <div class="card-grid grid-4" id="allDestGrid"></div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("destinations");
+  renderFooter();
+  const regions = ["All", ...new Set(DESTINATIONS.map(d => d.region))];
+  let activeRegion = "All";
+  function renderTabs() {
+    document.getElementById("regionTabs").innerHTML = regions.map(r =>
+      `<button class="${r===activeRegion?'active':''}" data-region="${r}">${r}</button>`).join("");
+    document.querySelectorAll("[data-region]").forEach(b => b.addEventListener("click", () => { activeRegion = b.dataset.region; renderTabs(); renderGrid(); }));
+  }
+  function renderGrid() {
+    const list = activeRegion === "All" ? DESTINATIONS : DESTINATIONS.filter(d => d.region === activeRegion);
+    document.getElementById("allDestGrid").innerHTML = list.map(d => `
+      <a href="destination.html?id=${d.id}" class="dest-card">
+        <div class="card-media">${destPhotoSvg(d)}</div>
+        <div class="card-body">
+          <h4>${d.name}</h4>
+          <div class="route-line">${d.country} · ${d.tagline}</div>
+          <div class="fare-row">
+            <div><span class="fare-from">From</span><div class="fare-price">${d.fareFrom ? formatPrice(d.fareFrom) : "Hub city"}</div></div>
+            <span class="btn btn-outline btn-sm">View</span>
+          </div>
+        </div>
+      </a>`).join("");
+  }
+  renderTabs(); renderGrid();
+</script>
+</body>
+</html>

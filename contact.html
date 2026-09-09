@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | Skyward Airlines</title>
+<meta name="description" content="Get in touch with Skyward Airlines reservations, general enquiries or parcel services.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / Contact Us</div>
+      <h1 style="color:white;font-size:clamp(26px,4vw,38px);">Contact Us</h1>
+      <p style="color:#E8C7CA;max-width:560px;margin-top:10px;">We're easiest to reach by phone or WhatsApp for anything time-sensitive.</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-tiles">
+        <div class="contact-tile"><div class="ci">📞</div><h4>Reservations</h4><p class="muted">0755 455 919</p></div>
+        <div class="contact-tile"><div class="ci">✉️</div><h4>General Enquiries</h4><p class="muted">Skywardairlines254@gmail.com</p></div>
+        <div class="contact-tile"><div class="ci">📦</div><h4>Parcel Enquiries</h4><p class="muted">Skywardairlines254@gmail.com</p></div>
+      </div>
+
+      <div class="two-col" style="margin-top:48px;">
+        <div>
+          <h2 class="mb-16">Send us a message</h2>
+          <form id="contactForm">
+            <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+              <div class="form-field"><label>Full Name</label><input type="text" required></div>
+              <div class="form-field"><label>Phone Number</label><input type="tel" required></div>
+              <div class="form-field" style="grid-column:1/-1;"><label>Email</label><input type="email" required></div>
+              <div class="form-field" style="grid-column:1/-1;"><label>Subject</label>
+                <select><option>General Enquiry</option><option>Booking Enquiry</option><option>Parcel Enquiry</option><option>Feedback</option></select>
+              </div>
+              <div class="form-field" style="grid-column:1/-1;"><label>Message</label><textarea rows="5" required></textarea></div>
+            </div>
+            <button class="btn btn-primary" style="margin-top:16px;" type="submit">Send Message</button>
+          </form>
+          <div id="contactSuccess" class="callout hidden" style="margin-top:16px;">Opening WhatsApp with your message ready to send — if nothing opened, <a id="contactWhatsappLink" href="#" target="_blank" rel="noopener">tap here to continue</a>.</div>
+        </div>
+        <div>
+          <div class="promo-card mb-16"><h4>Office</h4><p>Skyward Airlines House, Airport North Road, Nairobi, Kenya</p></div>
+          <div class="promo-card mb-16"><h4>WhatsApp</h4><p>Message us directly for fast responses to booking questions.</p><a href="https://wa.me/254755455919" class="btn btn-navy btn-sm">Open WhatsApp</a></div>
+          <div class="map-block photo-block grad-navy" style="background-image:url('images/contact-map.jpg');"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("contact"); renderFooter();
+  document.getElementById("contactForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.querySelector('input[type="text"]').value;
+    const phone = form.querySelector('input[type="tel"]').value;
+    const email = form.querySelector('input[type="email"]').value;
+    const subject = form.querySelector('select').value;
+    const message = form.querySelector('textarea').value;
+
+    const text = [
+      "New message via skywardairlines.example — Contact Us",
+      "",
+      `Name: ${name}`,
+      `Phone: ${phone}`,
+      `Email: ${email}`,
+      `Subject: ${subject}`,
+      "",
+      `Message: ${message}`
+    ].join("\n");
+
+    const link = buildWhatsAppLink(text);
+    document.getElementById("contactWhatsappLink").href = link;
+    document.getElementById("contactSuccess").classList.remove("hidden");
+    openWhatsApp(link);
+    form.reset();
+  });
+</script>
+</body>
+</html>

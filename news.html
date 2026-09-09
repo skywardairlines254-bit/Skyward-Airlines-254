@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News & Media | Skyward Airlines</title>
+<meta name="description" content="The latest company news, route announcements and press from Skyward Airlines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / About Us / Latest News</div>
+      <h1 style="color:white;font-size:clamp(26px,4vw,38px);">News & Media Centre</h1>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Featured</span>
+      <div id="featuredNews" class="mb-32"></div>
+      <span class="eyebrow">Latest News</span>
+      <div class="card-grid grid-4" id="newsGridFull" style="margin-top:16px;"></div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("about"); renderFooter();
+  const featured = NEWS[0];
+  document.getElementById("featuredNews").innerHTML = `
+    <a href="news-article.html?id=${featured.id}" class="dest-card" style="display:grid;grid-template-columns:1.2fr 1fr;">
+      <div class="card-media" style="aspect-ratio:auto;">${mediaBlock(featured.image, "grad-navy", featured.title, "height:100%;")}</div>
+      <div class="card-body">
+        <span class="tag">${featured.category}</span>
+        <h4 style="font-size:22px;">${featured.title}</h4>
+        <p>${featured.excerpt}</p>
+        <div class="muted" style="font-size:13px;">${new Date(featured.date).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}</div>
+      </div>
+    </a>`;
+  document.getElementById("newsGridFull").innerHTML = NEWS.map(n => `
+    <a href="news-article.html?id=${n.id}" class="news-card">
+      <div class="card-media">${mediaBlock(n.image, "grad-sky", n.title)}</div>
+      <div class="card-body">
+        <span class="tag">${n.category}</span>
+        <h4>${n.title}</h4>
+        <p>${n.excerpt}</p>
+        <div class="muted" style="font-size:12.5px;">${new Date(n.date).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}</div>
+      </div>
+    </a>`).join("");
+</script>
+</body>
+</html>

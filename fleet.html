@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Fleet | Skyward Airlines</title>
+<meta name="description" content="The aircraft behind Skyward Airlines' regional network — Dash 8-400, ATR 72-600, Embraer E175 and Cessna Grand Caravan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero">
+    <div class="container">
+      <div class="breadcrumb"><a href="index.html">Home</a> / About Us / Our Fleet</div>
+      <h1 style="color:white;font-size:clamp(26px,4vw,38px);">Our Fleet</h1>
+      <p style="color:#E8C7CA;max-width:560px;margin-top:10px;">Four aircraft types, matched to the routes they fly best.</p>
+    </div>
+  </div>
+  <section class="section">
+    <div class="container" id="fleetList"></div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("about"); renderFooter();
+  document.getElementById("fleetList").innerHTML = FLEET.map((f, i) => `
+    <div class="two-col mb-32" style="align-items:center;">
+      ${i % 2 === 0 ? mediaBlock(f.image, "grad-navy", f.name, "aspect-ratio:4/3;") : ""}
+      <div>
+        <h2 class="mb-16">${f.name}</h2>
+        <p class="muted mb-16">${f.description}</p>
+        <table class="policy-table">
+          <tbody>
+            <tr><th>Passenger Capacity</th><td>${f.capacity} seats</td></tr>
+            <tr><th>Range</th><td>${f.range}</td></tr>
+            <tr><th>Cruising Speed</th><td>${f.speed}</td></tr>
+            <tr><th>Cabin Configuration</th><td>${f.cabin}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      ${i % 2 !== 0 ? mediaBlock(f.image, "grad-sky", f.name, "aspect-ratio:4/3;") : ""}
+    </div>
+  `).join("");
+</script>
+</body>
+</html>

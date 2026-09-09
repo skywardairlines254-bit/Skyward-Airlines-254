@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="artTitle">News | Skyward Airlines</title>
+<meta name="description" id="artDesc" content="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="images/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="images/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+<body>
+<div id="site-header"></div>
+<main>
+  <div class="page-hero"><div class="container"><div class="breadcrumb"><a href="index.html">Home</a> / <a href="news.html">News</a> / Article</div>
+  <h1 id="artHeading" style="color:white;font-size:clamp(24px,3.6vw,36px);max-width:760px;"></h1></div></div>
+  <section class="section">
+    <div class="container two-col">
+      <div>
+        <div id="artPhoto"></div>
+        <div class="muted mb-16" id="artMeta"></div>
+        <p id="artBody" style="font-size:17px;color:var(--muted);max-width:680px;"></p>
+      </div>
+      <div>
+        <div class="promo-card"><h4>More News</h4><div id="relatedNews"></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+<script>
+  renderHeader("about"); renderFooter();
+  const id = new URLSearchParams(window.location.search).get("id") || NEWS[0].id;
+  const n = NEWS.find(x => x.id === id) || NEWS[0];
+  document.getElementById("artTitle").textContent = n.title + " | Skyward Airlines";
+  document.getElementById("artDesc").setAttribute("content", n.excerpt);
+  document.getElementById("artHeading").textContent = n.title;
+  document.getElementById("artPhoto").outerHTML = mediaBlock(n.image, "grad-navy", n.title, "aspect-ratio:16/8;").replace('class="photo-block', 'id="artPhoto" class="photo-block mb-24');
+  document.getElementById("artMeta").textContent = n.category + " · " + new Date(n.date).toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"});
+  document.getElementById("artBody").textContent = n.excerpt + " Our team will continue to share updates on this story as it develops. For questions, reach out via our Contact Us page.";
+  document.getElementById("relatedNews").innerHTML = NEWS.filter(x=>x.id!==n.id).slice(0,3).map(x=>`<a href="news-article.html?id=${x.id}" style="display:block;padding:8px 0;border-top:1px solid var(--border);font-size:14px;color:var(--navy-dark);font-weight:600;">${x.title}</a>`).join("");
+</script>
+</body>
+</html>
